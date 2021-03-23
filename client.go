@@ -86,7 +86,7 @@ func (c *Client) Close() error {
 // retrieving the responses afterwards.
 func (c *Client) Request(ip net.IP) error {
 	if c.ip == nil {
-		return errNoIPv4Addr
+		c.ip = net.ParseIP("0.0.0.0").To4()
 	}
 
 	// Create ARP packet for broadcast address to attempt to find the

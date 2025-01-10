@@ -94,7 +94,7 @@ func (c *Client) Close() error {
 // retrieving the responses afterwards.
 func (c *Client) Request(ip netip.Addr) error {
 	if !c.ip.IsValid() {
-		return errNoIPv4Addr
+		c.ip = netip.MustParseAddr("0.0.0.0")
 	}
 
 	// Create ARP packet for broadcast address to attempt to find the
@@ -239,5 +239,5 @@ func firstIPv4Addr(addrs []netip.Addr) (netip.Addr, error) {
 			return a, nil
 		}
 	}
-	return netip.Addr{}, errNoIPv4Addr
+	return netip.MustParseAddr("0.0.0.0"), nil
 }
